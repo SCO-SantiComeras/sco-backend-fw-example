@@ -1,6 +1,6 @@
 import { Model } from "mongoose";
-import { IUser } from "src/core/users/interface/iuser.interface";
-import { UsersService } from "src/core/users/users.service";
+import { IUser } from "src/modules/users/interface/iuser.interface";
+import { UsersService } from "src/modules/users/users.service";
 
 async (body: { 
         query?: any; 

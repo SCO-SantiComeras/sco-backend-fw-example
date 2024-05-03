@@ -1,6 +1,6 @@
 import { Model } from "mongoose";
-import { UsersService } from "src/core/users/users.service";
-import { IUser } from "src/core/users/interface/iuser.interface";
+import { UsersService } from "src/modules/users/users.service";
+import { IUser } from "src/modules/users/interface/iuser.interface";
 import { HttpErrorsService } from "src/core/shared/http-errors/http-errors.service";
 import { HttpError } from "sco-backend-fw";
 

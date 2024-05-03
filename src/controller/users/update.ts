@@ -1,8 +1,8 @@
 import { Model } from "mongoose";
-import { UsersService } from "src/core/users/users.service";
-import { IUser } from "src/core/users/interface/iuser.interface";
+import { UsersService } from "src/modules/users/users.service";
+import { IUser } from "src/modules/users/interface/iuser.interface";
 import { HttpErrorsService } from "src/core/shared/http-errors/http-errors.service";
-import { UserDto } from "src/core/users/dto/user.dto";
+import { UserDto } from "src/modules/users/dto/user.dto";
 import { HttpError } from "sco-backend-fw";
 
 async (body: { 
