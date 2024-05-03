@@ -4,6 +4,7 @@ import { IUser } from "src/core/users/interface/iuser.interface";
 import { HttpErrorsService } from "src/core/shared/http-errors/http-errors.service";
 import { WebsocketsService } from "src/core/websockets/websockets.service";
 import { UserDto } from "src/core/users/dto/user.dto";
+import { HttpError } from "sco-backend-fw";
 
 async (body: { 
         _id: string; 
@@ -19,30 +20,30 @@ async (body: {
     if (!existUser) {
         console.log(`[Users UPDATE] User _id '${body._id}' not found`);
         return { 
-            type: 'HttpException', 
+            type: appService.httpErrorsService.HTTP_ERRORS_TYPES.HTTP_EXCEPTION,
             message: appService.httpErrorsService.HTTP_ERRORS_CONSTANTS.USERS.USER_NOT_FOUND, 
             code: appService.httpErrorsService.HTTP_STATUS.NOT_FOUND 
-        };
+        } as HttpError;
     }
 
     const existUserName: IUser = await appService.usersService.findUserByName(body.user.name);
     if (existUserName) {
         console.log(`[Users UPDATE] User name '${body.user.name}' already exists`);
         return { 
-            type: 'HttpException', 
+            type: appService.httpErrorsService.HTTP_ERRORS_TYPES.HTTP_EXCEPTION,
             message: appService.httpErrorsService.HTTP_ERRORS_CONSTANTS.USERS.USER_NAME_ALREADY_EXISTS, 
             code: appService.httpErrorsService.HTTP_STATUS.CONFLICT 
-        };
+        } as HttpError;
     }
 
     const existUserEmail: IUser = await appService.usersService.findUserByEmail(body.user.email);
     if (existUserEmail) {
         console.log(`[Users UPDATE] User email '${body.user.email}' already exists`);
         return { 
-            type: 'HttpException', 
+            type: appService.httpErrorsService.HTTP_ERRORS_TYPES.HTTP_EXCEPTION,
             message: appService.httpErrorsService.HTTP_ERRORS_CONSTANTS.USERS.USER_EMAIL_ALREADY_EXISTS, 
             code: appService.httpErrorsService.HTTP_STATUS.CONFLICT 
-        };
+        } as HttpError;
     }
 
     const UserModel: Model<IUser> = await appService.usersService.getModel();
@@ -61,10 +62,10 @@ async (body: {
     if (!result || (result && result.modifiedCount != 1)) {
         console.log(`[Users UPDATE] User _id '${body._id}' unnable to update`);
         return { 
-            type: 'HttpException', 
+            type: appService.httpErrorsService.HTTP_ERRORS_TYPES.HTTP_EXCEPTION, 
             message: appService.httpErrorsService.HTTP_ERRORS_CONSTANTS.USERS.USER_UNNABLE_UPDATE, 
             code: appService.httpErrorsService.HTTP_STATUS.CONFLICT 
-        };
+        } as HttpError;
     }
 
     if (!appService.websocketsService.notifyWebsockets(appService.websocketsService.WEBSOCKETS_CONSTANTS.WS_USERS)) {

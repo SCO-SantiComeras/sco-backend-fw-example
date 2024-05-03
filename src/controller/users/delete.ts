@@ -3,6 +3,7 @@ import { UsersService } from "src/core/users/users.service";
 import { IUser } from "src/core/users/interface/iuser.interface";
 import { HttpErrorsService } from "src/core/shared/http-errors/http-errors.service";
 import { WebsocketsService } from "src/core/websockets/websockets.service";
+import { HttpError } from "sco-backend-fw";
 
 async (body: { 
         _id: string;
@@ -17,10 +18,10 @@ async (body: {
     if (!existUser) {
         console.log(`[Users DELETE] User _id '${body._id}' not found`);
         return { 
-            type: 'HttpException', 
+            type:  appService.httpErrorsService.HTTP_ERRORS_TYPES.HTTP_EXCEPTION, 
             message: appService.httpErrorsService.HTTP_ERRORS_CONSTANTS.USERS.USER_NOT_FOUND, 
             code: appService.httpErrorsService.HTTP_STATUS.NOT_FOUND 
-        };
+        } as HttpError;
     }
 
     const UserModel: Model<IUser> = await appService.usersService.getModel();
@@ -29,10 +30,10 @@ async (body: {
     if (!result || (result && result.deletedCount != 1)) {
         console.log(`[Users DELETE] User _id '${body._id}' unnable to delete`);
         return { 
-            type: 'HttpException', 
+            type: appService.httpErrorsService.HTTP_ERRORS_TYPES.HTTP_EXCEPTION,
             message: appService.httpErrorsService.HTTP_ERRORS_CONSTANTS.USERS.USER_UNNABLE_DELETE, 
             code: appService.httpErrorsService.HTTP_STATUS.CONFLICT 
-        };
+        } as HttpError;
     }
 
     if (!appService.websocketsService.notifyWebsockets(appService.websocketsService.WEBSOCKETS_CONSTANTS.WS_USERS)) {
