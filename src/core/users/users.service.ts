@@ -1,15 +1,17 @@
 import { MongoDbService } from '../mongo-db/mongo-db.service';
 import { Injectable } from "@nestjs/common";
 import { Model } from "mongoose";
+import { FileFunctionsService } from 'sco-backend-fw';
 import { IUser } from "./interface/iuser.interface";
 import { USERS_CONSTANTS } from "./constants/user.constants";
 import { USERS_SCHEMA } from "./schema/user.schema";
-import { FileFunctionsService } from 'sco-backend-fw';
 import { WebsocketsService } from '../websockets/websockets.service';
 import { HttpErrorsService } from '../shared/http-errors/http-errors.service';
+import { IWsNotificator } from '../websockets/interfaces/iws-notificator.interface';
+import { IMongoBasic } from '../mongo-db/interfaces/imongo-basic';
 
 @Injectable()
-export class UsersService {
+export class UsersService implements IWsNotificator, IMongoBasic {
 
     public readonly USERS_CONSTANTS = USERS_CONSTANTS;
 
@@ -66,15 +68,15 @@ export class UsersService {
     }
 
     /* Mongodb */
-    public async getModel(): Promise<Model<IUser>> {
+    public getModel(): Model<IUser> {
         return this._UserModel;
     }
 
-    public async findUser(_id): Promise<IUser> {
+    public async findById(_id): Promise<IUser> {
         try {
             return await this._UserModel.findOne({ _id: _id });
         } catch (error) {
-            console.log(`[findUser] Error: ${JSON.stringify(error)}`);
+            console.log(`[findById] Error: ${JSON.stringify(error)}`);
             return undefined;
         }
     }
