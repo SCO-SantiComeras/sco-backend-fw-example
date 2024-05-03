@@ -1,6 +1,6 @@
 
 import { Injectable } from "@nestjs/common";
-import { HTTP_STATUS } from "sco-backend-fw";
+import { HTTP_ERRORS_TYPES, HTTP_STATUS } from "sco-backend-fw";
 import { HTTP_ERRORS_CONSTANTS } from "./http-errors.constants";
 
 @Injectable()
@@ -8,8 +8,9 @@ export class HttpErrorsService {
 
     public readonly HTTP_ERRORS_CONSTANTS = HTTP_ERRORS_CONSTANTS;
     public readonly HTTP_STATUS = HTTP_STATUS;
+    public readonly HTTP_ERRORS_TYPES = HTTP_ERRORS_TYPES;
 
-    constructor() { }
+    constructor() {}
 
     public getMessage(key: string, group?: string): string {
         for (const level of Object.keys(this.HTTP_ERRORS_CONSTANTS)) {
