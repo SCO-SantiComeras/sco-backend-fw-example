@@ -43,19 +43,19 @@ require("dotenv").config();
     MongoDbModule.register(),
     SharedModule,
     ScoBackendFwModule.registerAsync({
-      imports: [],
-      useFactory: () => {
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => {
         return {
-          verbose: true,
-          path: './src',
-          folder: 'controller',
-          extension: 'ts',
-          response: false,
-          validationPipe: true,
-          validationPassport: false,
+          verbose: configService.get('sco.verbose'),
+          path: configService.get('sco.path'),
+          folder: configService.get('sco.folder'),
+          extension: configService.get('sco.extension'),
+          response: configService.get('sco.response'),
+          validationPipe: configService.get('sco.validationPipe'),
+          validationPassport: configService.get('sco.validationPassport'),
         };
       },
-      inject: [],
+      inject: [ConfigService],
     }),
     UsersModule,
   ],
