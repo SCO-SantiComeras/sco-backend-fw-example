@@ -11,7 +11,7 @@ async (body: {
 ) => {
     const { usersService } = appService;
 
-    const UserModel: Model<IUser> = await usersService.getModel();
+    const UserModel: Model<IUser> = usersService.getModel();
 
     const users: IUser[] = await UserModel.find(body.query ? body.query : undefined);
     if (!users || (users && users.length == 0)) {

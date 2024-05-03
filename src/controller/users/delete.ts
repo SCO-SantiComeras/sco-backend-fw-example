@@ -12,7 +12,7 @@ async (body: {
         httpErrorsService? : HttpErrorsService;
     },
 ) => {
-    const existUser: IUser = await appService.usersService.findUser(body._id);
+    const existUser: IUser = await appService.usersService.findById(body._id);
     if (!existUser) {
         console.log(`[Users DELETE] User _id '${body._id}' not found`);
         return { 
@@ -22,7 +22,7 @@ async (body: {
         } as HttpError;
     }
 
-    const UserModel: Model<IUser> = await appService.usersService.getModel();
+    const UserModel: Model<IUser> = appService.usersService.getModel();
     const result = await UserModel.deleteOne({ _id: body._id });
 
     if (!result || (result && result.deletedCount != 1)) {

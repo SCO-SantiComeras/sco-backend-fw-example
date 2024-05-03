@@ -35,7 +35,7 @@ async (body: {
         } as HttpError;
     }
 
-    const UserModel: Model<IUser> = await usersService.getModel();
+    const UserModel: Model<IUser> = usersService.getModel();
     const createdUser: IUser = await UserModel.create({
         name: body.user.name,
         email: body.user.email,
