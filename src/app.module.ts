@@ -12,7 +12,7 @@ import { configurationCors } from './configuration/configuration-cors';
 import { SharedModule } from './core/shared/shared.module';
 import { configurationMongo } from './configuration/configuration-mongo';
 import { MongoDbModule } from './core/mongo-db/mongo-db.module';
-import { UsersModule } from './core/users/users.module';
+import { UsersModule } from './modules/users/users.module';
 
 require("dotenv").config();
 

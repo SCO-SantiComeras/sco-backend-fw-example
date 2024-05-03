@@ -1,5 +1,5 @@
 import { IFileFunction, TYPES } from "sco-backend-fw";
-import { UserDto } from "../core/users/dto/user.dto";
+import { UserDto } from "../modules/users/dto/user.dto";
 
 export const USERS_ROUTES: IFileFunction[] = [
     {

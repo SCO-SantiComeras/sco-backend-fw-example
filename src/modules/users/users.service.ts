@@ -1,14 +1,14 @@
-import { MongoDbService } from '../mongo-db/mongo-db.service';
 import { Injectable } from "@nestjs/common";
 import { Model } from "mongoose";
 import { FileFunctionsService } from 'sco-backend-fw';
 import { IUser } from "./interface/iuser.interface";
 import { USERS_CONSTANTS } from "./constants/user.constants";
 import { USERS_SCHEMA } from "./schema/user.schema";
-import { WebsocketsService } from '../websockets/websockets.service';
-import { HttpErrorsService } from '../shared/http-errors/http-errors.service';
-import { IWsNotificator } from '../websockets/interfaces/iws-notificator.interface';
-import { IMongoBasic } from '../mongo-db/interfaces/imongo-basic';
+import { WebsocketsService } from '../../core/websockets/websockets.service';
+import { HttpErrorsService } from '../../core/shared/http-errors/http-errors.service';
+import { IWsNotificator } from '../../core/websockets/interfaces/iws-notificator.interface';
+import { IMongoBasic } from '../../core/mongo-db/interfaces/imongo-basic';
+import { MongoDbService } from '../../core/mongo-db/mongo-db.service';
 
 @Injectable()
 export class UsersService implements IWsNotificator, IMongoBasic {

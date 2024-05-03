@@ -1,4 +1,4 @@
-import { VALIDATION_ERRORS_CONSTANTS } from '../../shared/validation-errors/validation-errors.constants';
+import { VALIDATION_ERRORS_CONSTANTS } from '../../../core/shared/validation-errors/validation-errors.constants';
 import { Type } from "class-transformer";
 import { IsDate, IsNotEmpty, IsOptional, IsString, Matches, MaxLength, MinLength } from "class-validator";
 
