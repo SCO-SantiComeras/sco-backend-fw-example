@@ -19,6 +19,8 @@ export const CALCULATOR_ROUTES: IFileFunction[] = [
             { name: 'n2', type: TYPES.NUMBER, optional: false },
         ],
         resultType: TYPES.NUMBER,
+        validationPipe: false,
+        validationPassport: false,
     },
     {
         file: CALCULATOR_ROUTES_NAMES.SUBTRACT,
@@ -28,6 +30,8 @@ export const CALCULATOR_ROUTES: IFileFunction[] = [
             { name: 'n2', type: TYPES.NUMBER, optional: false },
         ],
         resultType: TYPES.NUMBER,
+        validationPipe: false,
+        validationPassport: false,
     },
     {
         file: CALCULATOR_ROUTES_NAMES.MULTIPLY,
@@ -37,6 +41,8 @@ export const CALCULATOR_ROUTES: IFileFunction[] = [
             { name: 'n2', type: TYPES.NUMBER, optional: false },
         ],
         resultType: TYPES.NUMBER,
+        validationPipe: false,
+        validationPassport: false,
     },
     {
         file: CALCULATOR_ROUTES_NAMES.SPLIT,
@@ -46,6 +52,8 @@ export const CALCULATOR_ROUTES: IFileFunction[] = [
             { name: 'n2', type: TYPES.NUMBER, optional: false },
         ],
         resultType: TYPES.NUMBER,
+        validationPipe: false,
+        validationPassport: false,
     },
     {
         file: CALCULATOR_ROUTES_NAMES.REST,
@@ -55,5 +63,7 @@ export const CALCULATOR_ROUTES: IFileFunction[] = [
             { name: 'n2', type: TYPES.NUMBER, optional: false },
         ],
         resultType: TYPES.NUMBER,
+        validationPipe: false,
+        validationPassport: false,
     },
 ];

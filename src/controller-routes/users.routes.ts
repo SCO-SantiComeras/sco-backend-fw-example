@@ -18,6 +18,8 @@ export const USERS_ROUTES: IFileFunction[] = [
             { name: 'query', type: TYPES.ANY, optional: true }
         ],
         resultType: TYPES.ARRAY,
+        validationPipe: false,
+        validationPassport: true,
     },
     {
         file: USERS_ROUTES_NAMES.ADD,
@@ -26,6 +28,8 @@ export const USERS_ROUTES: IFileFunction[] = [
             { name: 'user', type: TYPES.OBJECT, optional: false, dto: UserDto }
         ],
         resultType: TYPES.MODEL,
+        validationPipe: true,
+        validationPassport: true,
     },
     {
         file: USERS_ROUTES_NAMES.UPDATE,
@@ -35,6 +39,8 @@ export const USERS_ROUTES: IFileFunction[] = [
             { name: 'user', type: TYPES.OBJECT, optional: false, dto: UserDto }
         ],
         resultType: TYPES.MODEL,
+        validationPipe: true,
+        validationPassport: true,
     },
     {
         file: USERS_ROUTES_NAMES.DELETE,
@@ -43,5 +49,7 @@ export const USERS_ROUTES: IFileFunction[] = [
             { name: '_id', type: TYPES.STRING, optional: false },
         ],
         resultType: TYPES.BOOLEAN,
+        validationPipe: false,
+        validationPassport: true,
     },
 ];

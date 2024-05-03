@@ -11,5 +11,7 @@ export const GLOBAL_ROUTES: IFileFunction[] = [
         file: GLOBAL_ROUTES_NAMES.HELLO,
         path: GLOBAL_ROUTES_PATH,
         resultType: TYPES.STRING,
+        validationPipe: false,
+        validationPassport: false,
     },
 ];
