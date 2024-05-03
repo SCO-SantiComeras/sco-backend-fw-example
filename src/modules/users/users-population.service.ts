@@ -1,32 +1,23 @@
 import { Injectable } from "@nestjs/common";
 import { Model } from "mongoose";
-import { FileFunctionsService } from 'sco-backend-fw';
+import { FileFunctionsService, ProvidersService } from 'sco-backend-fw';
 import { IUser } from "./interface/iuser.interface";
 import { USERS_CONSTANTS } from "./constants/user.constants";
 import { UsersService } from "./users.service";
 import { HttpErrorsService } from "src/core/shared/http-errors/http-errors.service";
+import { USERS_ROUTES_NAMES, USERS_ROUTES_PATH } from "src/controller-routes/users.routes";
 
 @Injectable()
 export class UsersPopulationService  {
 
     private readonly USERS_CONSTANTS = USERS_CONSTANTS;
-    private _providers: any;
-    private _UserModel: Model<IUser>;
 
     constructor(
         private readonly usersService: UsersService,
         private readonly fileFunctionsService: FileFunctionsService,
+        private readonly providersService: ProvidersService,
         private readonly httpErrorsService: HttpErrorsService,
-    ) { 
-        this._providers = {
-            usersPopulationService: this,
-            usersService: this.usersService,
-            fileFunctionsService: this.fileFunctionsService,
-            httpErrorsService: this.httpErrorsService,
-        };
-
-        this._UserModel = this.usersService.getModel();
-    }
+    ) { }
 
     /* On Load Module (Populate) */
     private async onModuleInit(): Promise<void> {
@@ -40,17 +31,17 @@ export class UsersPopulationService  {
         }
         
         for (const value of userValues) {
-            if (!await this._UserModel.findOne({ name: value.NAME })) {
+            if (!await this.usersService.findUserByName(value.NAME)) {
                 const createdUser: IUser = await this.fileFunctionsService.exec(
-                    'users',
-                    'add',
+                    USERS_ROUTES_PATH,
+                    USERS_ROUTES_NAMES.ADD,
                     {
                         user: {
                             name: value.NAME,
                             email: value.EMAIL,
                         }
                     },
-                    this._providers
+                    this.providersService.createProviders(this.providersService.getContextname(this), this),
                 );
 
                 if (createdUser) {
