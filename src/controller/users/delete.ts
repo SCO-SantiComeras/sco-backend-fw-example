@@ -35,7 +35,7 @@ async (body: {
         };
     }
 
-    if (appService.websocketsService.notifyWebsockets(appService.websocketsService.WEBSOCKETS_CONSTANTS.WS_USERS)) {
+    if (!appService.websocketsService.notifyWebsockets(appService.websocketsService.WEBSOCKETS_CONSTANTS.WS_USERS)) {
         console.log(`[Users DELETE] Websocket event '${appService.websocketsService.WEBSOCKETS_CONSTANTS.WS_USERS} unnable to send'`);
     }
 

@@ -67,8 +67,8 @@ async (body: {
         };
     }
 
-    if (appService.websocketsService.notifyWebsockets(appService.websocketsService.WEBSOCKETS_CONSTANTS.WS_USERS)) {
-        console.log(`[Users DELETE] Websocket event '${appService.websocketsService.WEBSOCKETS_CONSTANTS.WS_USERS} unnable to send'`);
+    if (!appService.websocketsService.notifyWebsockets(appService.websocketsService.WEBSOCKETS_CONSTANTS.WS_USERS)) {
+        console.log(`[Users UPDATE] Websocket event '${appService.websocketsService.WEBSOCKETS_CONSTANTS.WS_USERS} unnable to send'`);
     }
     
     console.log(`[Users UPDATE] User ${body._id} updated successfully`);

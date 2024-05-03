@@ -51,8 +51,8 @@ async (body: {
         };
     }
 
-    if (websocketsService.notifyWebsockets(websocketsService.WEBSOCKETS_CONSTANTS.WS_USERS)) {
-        console.log(`[Users DELETE] Websocket event '${websocketsService.WEBSOCKETS_CONSTANTS.WS_USERS} unnable to send'`);
+    if (!websocketsService.notifyWebsockets(websocketsService.WEBSOCKETS_CONSTANTS.WS_USERS)) {
+        console.log(`[Users ADD] Websocket event '${websocketsService.WEBSOCKETS_CONSTANTS.WS_USERS} unnable to send'`);
     }
 
     console.log(`[Users ADD] User ${body.user.name} created successfully`);
