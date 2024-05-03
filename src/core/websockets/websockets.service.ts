@@ -39,13 +39,11 @@ export class WebsocketsService implements OnGatewayInit, OnApplicationBootstrap 
     }, 100);
   }
 
-  async notifyWebsockets(wsEvent: string): Promise<boolean> {
+  public notifyWebsockets(wsEvent: string): boolean {
     try {
-      this.server.emit(wsEvent, true);
-      return true;
+      return this.server.emit(wsEvent, true);
     } catch (err) {
       console.error(`[Websockets] Error in websocket notification '${wsEvent}': ${JSON.stringify(err)}`);
-    } finally {
       return false;
     }
   }
