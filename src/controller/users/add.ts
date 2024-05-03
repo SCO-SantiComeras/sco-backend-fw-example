@@ -2,7 +2,6 @@ import { Model } from "mongoose";
 import { UsersService } from "src/core/users/users.service";
 import { IUser } from "src/core/users/interface/iuser.interface";
 import { HttpErrorsService } from "src/core/shared/http-errors/http-errors.service";
-import { WebsocketsService } from "src/core/websockets/websockets.service";
 import { UserDto } from "src/core/users/dto/user.dto";
 import { HttpError } from "sco-backend-fw";
 
@@ -12,10 +11,9 @@ async (body: {
     appService: {
         usersService?: UsersService;
         httpErrorsService? : HttpErrorsService;
-        websocketsService? : WebsocketsService;
     },
 ) => {
-    const { usersService, httpErrorsService, websocketsService } = appService;
+    const { usersService, httpErrorsService } = appService;
 
     const existUserName: IUser = await usersService.findUserByName(body.user.name);
     if (existUserName) {
@@ -52,8 +50,8 @@ async (body: {
         } as HttpError;
     }
 
-    if (!websocketsService.notifyWebsockets(websocketsService.WEBSOCKETS_CONSTANTS.WS_USERS)) {
-        console.log(`[Users ADD] Websocket event '${websocketsService.WEBSOCKETS_CONSTANTS.WS_USERS} unnable to send'`);
+    if (!usersService.notifyWebsocketEvent()) {
+        console.log(`[Users ADD] Websocket event '${usersService.getWebsocketEvent()} unnable to send'`);
     }
 
     console.log(`[Users ADD] User ${body.user.name} created successfully`);

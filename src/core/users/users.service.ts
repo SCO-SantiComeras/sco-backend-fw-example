@@ -4,16 +4,32 @@ import { Model } from "mongoose";
 import { IUser } from "./interface/iuser.interface";
 import { USERS_CONSTANTS } from "./constants/user.constants";
 import { USERS_SCHEMA } from "./schema/user.schema";
-
+import { FileFunctionsService } from 'sco-backend-fw';
+import { WebsocketsService } from '../websockets/websockets.service';
+import { HttpErrorsService } from '../shared/http-errors/http-errors.service';
 
 @Injectable()
 export class UsersService {
 
     public readonly USERS_CONSTANTS = USERS_CONSTANTS;
 
+    private _providers: any;
     private _UserModel: Model<IUser>;
 
-    constructor(private readonly mongodbService: MongoDbService) { 
+    constructor(
+        private readonly mongodbService: MongoDbService,
+        private readonly websocketsService: WebsocketsService,
+        private readonly httpErrorsService: HttpErrorsService,
+        private readonly fileFunctionsService: FileFunctionsService,
+    ) { 
+        this._providers = {
+            usersService: this,
+            mongodbService: this.mongodbService,
+            httpErrorsService: this.httpErrorsService,
+            websocketsService: this.websocketsService,
+            functionFilesService: this.fileFunctionsService,
+        };
+
         this._UserModel = this.mongodbService.getModelBySchema(
             this.mongodbService.MONGODB_CONSTANTS.USERS.MODEL, 
             USERS_SCHEMA, 
@@ -21,6 +37,7 @@ export class UsersService {
         );
     }
 
+    /* On Load Module (Populate) */
     private async onModuleInit(): Promise<void> {
         const userValues: any[] = Object.values(this.USERS_CONSTANTS);
         if (!userValues || (userValues && userValues.length == 0)) {
@@ -29,18 +46,26 @@ export class UsersService {
         
         for (const value of userValues) {
             if (!await this._UserModel.findOne({ name: value.NAME })) {
-                const userCreated: IUser = await this._UserModel.create({
-                    name: value.NAME,
-                    email: value.EMAIL,
-                });
+                const createdUser: IUser = await this.fileFunctionsService.exec(
+                    'users',
+                    'add',
+                    {
+                        user: {
+                            name: value.NAME,
+                            email: value.EMAIL,
+                        }
+                    },
+                    this._providers
+                );
 
-                if (userCreated) {
+                if (createdUser) {
                     console.log(`[Users] User '${value.NAME}' created successfully`);
                 }
             }
         }
     }
 
+    /* Mongodb */
     public async getModel(): Promise<Model<IUser>> {
         return this._UserModel;
     }
@@ -70,5 +95,14 @@ export class UsersService {
           console.log(`[findUserByEmail] Error: ${JSON.stringify(error)}`);
           return undefined;
         }
+    }
+
+    /* Websockets */
+    public getWebsocketEvent(): string {
+        return this.websocketsService.WEBSOCKETS_CONSTANTS.WS_USERS;
+    }
+
+    public notifyWebsocketEvent(): boolean {
+        return this.websocketsService.notifyWebsockets(this.getWebsocketEvent());
     }
 }
