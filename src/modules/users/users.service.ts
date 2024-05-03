@@ -2,7 +2,6 @@ import { Injectable } from "@nestjs/common";
 import { Model } from "mongoose";
 import { FileFunctionsService } from 'sco-backend-fw';
 import { IUser } from "./interface/iuser.interface";
-import { USERS_CONSTANTS } from "./constants/user.constants";
 import { USERS_SCHEMA } from "./schema/user.schema";
 import { WebsocketsService } from '../../core/websockets/websockets.service';
 import { HttpErrorsService } from '../../core/shared/http-errors/http-errors.service';
@@ -12,8 +11,6 @@ import { MongoDbService } from '../../core/mongo-db/mongo-db.service';
 
 @Injectable()
 export class UsersService implements IWsNotificator, IMongoBasic {
-
-    public readonly USERS_CONSTANTS = USERS_CONSTANTS;
 
     private _providers: any;
     private _UserModel: Model<IUser>;
@@ -37,34 +34,6 @@ export class UsersService implements IWsNotificator, IMongoBasic {
             USERS_SCHEMA, 
             this.mongodbService.MONGODB_CONSTANTS.USERS.TABLE
         );
-    }
-
-    /* On Load Module (Populate) */
-    private async onModuleInit(): Promise<void> {
-        const userValues: any[] = Object.values(this.USERS_CONSTANTS);
-        if (!userValues || (userValues && userValues.length == 0)) {
-            return;
-        }
-        
-        for (const value of userValues) {
-            if (!await this._UserModel.findOne({ name: value.NAME })) {
-                const createdUser: IUser = await this.fileFunctionsService.exec(
-                    'users',
-                    'add',
-                    {
-                        user: {
-                            name: value.NAME,
-                            email: value.EMAIL,
-                        }
-                    },
-                    this._providers
-                );
-
-                if (createdUser) {
-                    console.log(`[Users] User '${value.NAME}' created successfully`);
-                }
-            }
-        }
     }
 
     /* Mongodb */
