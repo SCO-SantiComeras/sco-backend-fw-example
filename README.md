@@ -1,9 +1,6 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+  <img src="https://scoapps.es/img/sco-backend-fw-logo.png" width="200" alt="ScoBackendFw-Logo" />
 </p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
   <p align="center">
     A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> and <a href="http://nestjs.com" target="_blank">Nest</a> framework for building efficient, scalable and no reload changes server-side applications.
