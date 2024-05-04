@@ -1,9 +1,9 @@
 <p align="center">
-  <h2>Sco Backend FW</h2>
+  <img src="https://scoapps.es/img/sco-backend-fw-logo.png" width="400" alt="ScoBackendFw-Logo" />
 </p>
 
 <p align="center">
-  <img src="https://scoapps.es/img/sco-backend-fw-logo.png" width="400" alt="ScoBackendFw-Logo" />
+  Sco Backend FW
 </p>
 
 <p align="center">
