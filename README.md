@@ -1,11 +1,14 @@
 <p align="center">
-  <h3>Sco Backend FW</h3>
+  <h2>Sco Backend FW</h2>
+</p>
+
+<p align="center">
   <img src="https://scoapps.es/img/sco-backend-fw-logo.png" width="400" alt="ScoBackendFw-Logo" />
 </p>
 
-  <p align="center">
-    A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> and <a href="http://nestjs.com" target="_blank">Nest</a> framework for building efficient, scalable and no reload changes server-side applications.
-  </p>
+<p align="center">
+  A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> and <a href="http://nestjs.com" target="_blank">Nest</a> framework for building efficient, scalable and no reload changes server-side applications.
+</p>
 
 ## Description
 
