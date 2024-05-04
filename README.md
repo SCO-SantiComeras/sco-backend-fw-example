@@ -1,5 +1,6 @@
 <p align="center">
-  <img src="https://scoapps.es/img/sco-backend-fw-logo.png" width="200" alt="ScoBackendFw-Logo" />
+  <h3>Sco Backend FW</h3>
+  <img src="https://scoapps.es/img/sco-backend-fw-logo.png" width="400" alt="ScoBackendFw-Logo" />
 </p>
 
   <p align="center">
