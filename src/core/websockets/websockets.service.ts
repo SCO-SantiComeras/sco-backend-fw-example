@@ -4,11 +4,10 @@ import { Server, ServerOptions } from 'socket.io';
 import { Socket } from 'dgram';
 import { WebsocketsConfig } from './config/websockets-config';
 import { WEBSOCKETS_CONSTANTS } from './websockets.constants';
-import { IWsNotificator } from './interfaces/iws-notificator.interface';
 
 @Injectable()
 @WebSocketGateway()
-export class WebsocketsService implements OnGatewayInit, OnApplicationBootstrap, IWsNotificator {
+export class WebsocketsService implements OnGatewayInit, OnApplicationBootstrap {
 
   public readonly WEBSOCKETS_CONSTANTS = WEBSOCKETS_CONSTANTS;
   
@@ -42,7 +41,7 @@ export class WebsocketsService implements OnGatewayInit, OnApplicationBootstrap,
     }, 100);
   }
 
-  public notifyWebsockets(wsEvent: string): boolean {
+  public notify(wsEvent: string): boolean {
     try {
       return this.server.emit(wsEvent, true);
     } catch (err) {
@@ -51,13 +50,13 @@ export class WebsocketsService implements OnGatewayInit, OnApplicationBootstrap,
     }
   }
 
-  public getEvent(controller: string): string {
+  public getEventByKeyConstant(key: string): string {
     const websocketEvents: string[] = Object.keys(this.WEBSOCKETS_CONSTANTS);
     if (!websocketEvents || (websocketEvents && websocketEvents.length == 0)) {
         return undefined;
     }
 
-    const existEvent: string = websocketEvents.find(e => e.toUpperCase() == controller.toUpperCase());
+    const existEvent: string = websocketEvents.find(e => e.toUpperCase() == key.toUpperCase());
     if (!existEvent) {
         return undefined;
     }
