@@ -3,7 +3,7 @@ import { IUser } from "src/modules/users/interface/iuser.interface";
 import { FileFunctionsService } from "sco-backend-fw";
 
 async (body: {}, 
-    appService: {
+    providers: {
         usersService?: UsersService;
         fileFunctionsService: FileFunctionsService;
         USERS_ROUTES_PATH: string;
@@ -17,7 +17,7 @@ async (body: {},
         USERS_ROUTES_PATH,
         USERS_ROUTES_NAMES,
         USERS_CONSTANTS,
-    } = appService;
+    } = providers;
 
     const userValues: any[] = Object.values(USERS_CONSTANTS);
     if (!userValues || (userValues && userValues.length == 0)) {
@@ -35,7 +35,7 @@ async (body: {},
                         email: value.EMAIL,
                     }
                 },
-                appService,
+                providers,
             );
 
             if (createdUser) {

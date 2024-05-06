@@ -5,11 +5,11 @@ import { UsersService } from "src/modules/users/users.service";
 async (body: { 
         query?: any; 
     }, 
-    appService: {
+    providers: {
         usersService?: UsersService;
     },
 ) => {
-    const { usersService } = appService;
+    const { usersService } = providers;
 
     const UserModel: Model<IUser> = usersService.getModel();
 

@@ -9,12 +9,12 @@ async (body: {
         _id: string; 
         user: UserDto; 
     }, 
-    appService: {
+    providers: {
         usersService?: UsersService;
         httpErrorsService?: HttpErrorsService;
     },
 ) => {
-    const { usersService, httpErrorsService } = appService;
+    const { usersService, httpErrorsService } = providers;
 
     const existUser: IUser = await usersService.findById(body._id);
     if (!existUser) {

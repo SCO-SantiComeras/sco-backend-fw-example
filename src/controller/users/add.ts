@@ -8,12 +8,12 @@ import { HttpErrorsService } from "src/core/shared/http-errors/http-errors.servi
 async (body: { 
         user: UserDto; 
     }, 
-    appService: {
+    providers: {
         usersService?: UsersService;
         httpErrorsService?: HttpErrorsService;
     },
 ) => {
-    const { usersService, httpErrorsService } = appService;
+    const { usersService, httpErrorsService } = providers;
 
     const existUserName: IUser = await usersService.findUserByName(body.user.name);
     if (existUserName) {
