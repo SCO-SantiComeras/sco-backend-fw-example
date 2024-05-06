@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Model } from "mongoose";
+import { Model, Schema } from "mongoose";
 import { IUser } from "./interface/iuser.interface";
 import { USERS_SCHEMA } from "./schema/user.schema";
 import { WebsocketsService } from '../../core/websockets/websockets.service';
@@ -25,7 +25,7 @@ export class UsersService implements IMongoBasic {
         private readonly websocketsService: WebsocketsService,
         private readonly httpErrorsService: HttpErrorsService,
     ) { 
-        this._UserModel = this.mongodbService.getModelBySchema(
+        this._UserModel = this.createModel(
             this.mongodbService.MONGODB_CONSTANTS.USERS.MODEL, 
             USERS_SCHEMA, 
             this.mongodbService.MONGODB_CONSTANTS.USERS.TABLE
@@ -38,11 +38,19 @@ export class UsersService implements IMongoBasic {
             this.USERS_ROUTES_PATH,
             this.USERS_ROUTES_NAMES.POPULATE,
             {},
-            this.fileFunctionsService.createProviders(this.fileFunctionsService.getContextname(this), this),
+            this.fileFunctionsService.createProviders(this),
         );
     }
 
     /* Mongodb */
+    createModel(model: string, schema: Schema<IUser>, table: string): Model<IUser> {
+        return this.mongodbService.getModelBySchema(
+            model, 
+            schema, 
+            table,
+        );
+    }
+
     public getModel(): Model<IUser> {
         return this._UserModel;
     }
