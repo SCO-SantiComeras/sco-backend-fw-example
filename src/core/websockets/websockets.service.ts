@@ -53,14 +53,20 @@ export class WebsocketsService implements OnGatewayInit, OnApplicationBootstrap 
   public getEventByKeyConstant(key: string): string {
     const websocketEvents: string[] = Object.keys(this.WEBSOCKETS_CONSTANTS);
     if (!websocketEvents || (websocketEvents && websocketEvents.length == 0)) {
-        return undefined;
+      return undefined;
     }
 
     const existEvent: string = websocketEvents.find(e => e.toUpperCase() == key.toUpperCase());
     if (!existEvent) {
-        return undefined;
+      return undefined;
+    }
+
+    const index: number = websocketEvents.indexOf(existEvent);
+    if (index == -1) {
+      return undefined;
     }
     
-    return existEvent;
+    const websocketEventsValues: string[] = Object.values(this.WEBSOCKETS_CONSTANTS);
+    return websocketEventsValues[index];
   }
 }
