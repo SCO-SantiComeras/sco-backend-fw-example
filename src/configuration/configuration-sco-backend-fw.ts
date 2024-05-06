@@ -8,4 +8,5 @@ export const configurationScoBackendFw = registerAs("sco", () => ({
   response: process.env.SCO_BACKEND_FW_RESPONSE == "true",
   validationPipe: process.env.SCO_BACKEND_FW_VALIDATION_PIPE == "true",
   validationPassport: process.env.SCO_BACKEND_FW_VALIDATION_PASSPORT == "true",
+  strictResult: process.env.SCO_BACKEND_FW_STRICT_RESULT == "true",
 }));
