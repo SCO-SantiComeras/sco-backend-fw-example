@@ -1,4 +1,4 @@
 export interface IWsNotificator {
-    getWebsocketEvent(): string;
-    notifyWebsocketEvent(): boolean;
+    getEvent(controller: string): string;
+    notifyWebsockets(wsEvent: string): boolean;
 }

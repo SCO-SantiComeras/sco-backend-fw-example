@@ -4,14 +4,17 @@ import { Server, ServerOptions } from 'socket.io';
 import { Socket } from 'dgram';
 import { WebsocketsConfig } from './config/websockets-config';
 import { WEBSOCKETS_CONSTANTS } from './websockets.constants';
+import { IWsNotificator } from './interfaces/iws-notificator.interface';
 
 @Injectable()
 @WebSocketGateway()
-export class WebsocketsService implements OnGatewayInit, OnApplicationBootstrap {
+export class WebsocketsService implements OnGatewayInit, OnApplicationBootstrap, IWsNotificator {
 
   public readonly WEBSOCKETS_CONSTANTS = WEBSOCKETS_CONSTANTS;
   
-  constructor(@Inject('CONFIG_OPTIONS') private options: WebsocketsConfig) {}
+  constructor(
+    @Inject('CONFIG_OPTIONS') private options: WebsocketsConfig,
+  ) {}
 
   @WebSocketServer() server: Server;
 
@@ -33,7 +36,7 @@ export class WebsocketsService implements OnGatewayInit, OnApplicationBootstrap 
     }, 100);
   }
 
-  async handleConnection(client: Socket) {
+  handleConnection(client: Socket) {
     setTimeout(() => {
       console.log('[Websockets] Client connected: ', client['handshake'].headers.origin);
     }, 100);
@@ -43,8 +46,22 @@ export class WebsocketsService implements OnGatewayInit, OnApplicationBootstrap 
     try {
       return this.server.emit(wsEvent, true);
     } catch (err) {
-      console.error(`[Websockets] Error in websocket notification '${wsEvent}': ${JSON.stringify(err)}`);
-      return false;
+        console.error(`[Notify] Error in websocket notification '${wsEvent}': ${JSON.stringify(err)}`);
+        return false;
     }
+  }
+
+  public getEvent(controller: string): string {
+    const websocketEvents: string[] = Object.keys(this.WEBSOCKETS_CONSTANTS);
+    if (!websocketEvents || (websocketEvents && websocketEvents.length == 0)) {
+        return undefined;
+    }
+
+    const existEvent: string = websocketEvents.find(e => e.toUpperCase() == controller.toUpperCase());
+    if (!existEvent) {
+        return undefined;
+    }
+    
+    return existEvent;
   }
 }
