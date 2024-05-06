@@ -12,6 +12,7 @@ export const USERS_ROUTES_NAMES = {
 
 export const USERS_ROUTES: IFileFunction[] = [
     {
+        endpoint: true,
         file: USERS_ROUTES_NAMES.FIND,
         path: USERS_ROUTES_PATH,
         params: [
@@ -22,6 +23,7 @@ export const USERS_ROUTES: IFileFunction[] = [
         validationPassport: true,
     },
     {
+        endpoint: true,
         file: USERS_ROUTES_NAMES.ADD,
         path: USERS_ROUTES_PATH,
         params: [
@@ -32,6 +34,7 @@ export const USERS_ROUTES: IFileFunction[] = [
         validationPassport: true,
     },
     {
+        endpoint: true,
         file: USERS_ROUTES_NAMES.UPDATE,
         path: USERS_ROUTES_PATH,
         params: [
@@ -43,6 +46,7 @@ export const USERS_ROUTES: IFileFunction[] = [
         validationPassport: true,
     },
     {
+        endpoint: true,
         file: USERS_ROUTES_NAMES.DELETE,
         path: USERS_ROUTES_PATH,
         params: [

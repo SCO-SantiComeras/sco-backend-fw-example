@@ -8,6 +8,7 @@ export const GLOBAL_ROUTES_NAMES = {
 
 export const GLOBAL_ROUTES: IFileFunction[] = [
     {
+        endpoint: true,
         file: GLOBAL_ROUTES_NAMES.HELLO,
         path: GLOBAL_ROUTES_PATH,
         resultType: TYPES.STRING,

@@ -12,6 +12,7 @@ export const CALCULATOR_ROUTES_NAMES = {
 
 export const CALCULATOR_ROUTES: IFileFunction[] = [
     {
+        endpoint: true,
         file: CALCULATOR_ROUTES_NAMES.ADD,
         path: CALCULATOR_ROUTES_PATH,
         params: [
@@ -23,6 +24,7 @@ export const CALCULATOR_ROUTES: IFileFunction[] = [
         validationPassport: false,
     },
     {
+        endpoint: true,
         file: CALCULATOR_ROUTES_NAMES.SUBTRACT,
         path: CALCULATOR_ROUTES_PATH,
         params: [
@@ -34,6 +36,7 @@ export const CALCULATOR_ROUTES: IFileFunction[] = [
         validationPassport: false,
     },
     {
+        endpoint: true,
         file: CALCULATOR_ROUTES_NAMES.MULTIPLY,
         path: CALCULATOR_ROUTES_PATH,
         params: [
@@ -45,6 +48,7 @@ export const CALCULATOR_ROUTES: IFileFunction[] = [
         validationPassport: false,
     },
     {
+        endpoint: true,
         file: CALCULATOR_ROUTES_NAMES.SPLIT,
         path: CALCULATOR_ROUTES_PATH,
         params: [
@@ -56,6 +60,7 @@ export const CALCULATOR_ROUTES: IFileFunction[] = [
         validationPassport: false,
     },
     {
+        endpoint: true,
         file: CALCULATOR_ROUTES_NAMES.REST,
         path: CALCULATOR_ROUTES_PATH,
         params: [
