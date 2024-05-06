@@ -1,16 +1,16 @@
 import { Model } from "mongoose";
 import { UsersService } from "src/modules/users/users.service";
 import { IUser } from "src/modules/users/interface/iuser.interface";
-import { HttpErrorsService } from "src/core/shared/http-errors/http-errors.service";
 import { UserDto } from "src/modules/users/dto/user.dto";
 import { HttpError } from "sco-backend-fw";
+import { HttpErrorsService } from "src/core/shared/http-errors/http-errors.service";
 
 async (body: { 
         user: UserDto; 
     }, 
     appService: {
         usersService?: UsersService;
-        httpErrorsService? : HttpErrorsService;
+        httpErrorsService?: HttpErrorsService;
     },
 ) => {
     const { usersService, httpErrorsService } = appService;
@@ -50,8 +50,8 @@ async (body: {
         } as HttpError;
     }
 
-    if (!usersService.notifyWebsocketEvent()) {
-        console.log(`[Users ADD] Websocket event '${usersService.getWebsocketEvent()} unnable to send'`);
+    if (!usersService.notifyWebsockets()) {
+        console.log(`[Users ADD] Websocket event '${usersService.USERS_ROUTES_PATH.toUpperCase()} unnable to send'`);
     }
 
     console.log(`[Users ADD] User ${body.user.name} created successfully`);
