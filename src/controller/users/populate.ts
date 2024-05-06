@@ -23,9 +23,9 @@ async (body: {},
     if (!userValues || (userValues && userValues.length == 0)) {
         return;
     }
-
+    
     for (const value of userValues) {
-        if (!await usersService.findUserByName(value.NAME)) {
+        if (!await usersService.findOneByProperty('name', value.NAME)) {
             const createdUser: IUser = await fileFunctionsService.exec(
                 USERS_ROUTES_PATH,
                 USERS_ROUTES_NAMES.ADD,

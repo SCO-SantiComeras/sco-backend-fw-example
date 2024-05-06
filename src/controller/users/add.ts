@@ -15,7 +15,7 @@ async (body: {
 ) => {
     const { usersService, httpErrorsService } = providers;
 
-    const existUserName: IUser = await usersService.findUserByName(body.user.name);
+    const existUserName: IUser = await usersService.findOneByProperty('name', body.user.name);
     if (existUserName) {
         console.log(`[Users ADD] User name '${body.user.name}' already exists`);
         return {
@@ -25,7 +25,7 @@ async (body: {
         } as HttpError;
     }
 
-    const existUserEmail: IUser = await usersService.findUserByEmail(body.user.email);
+    const existUserEmail: IUser = await usersService.findOneByProperty('email', body.user.email);
     if (existUserEmail) {
         console.log(`[Users ADD] User email '${body.user.email}' already exists`);
         return { 

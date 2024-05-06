@@ -64,21 +64,15 @@ export class UsersService implements IMongoBasic {
         }
     }
 
-    public async findUserByName(name: string): Promise<IUser> {
+    public async findOneByProperty(property: string, value: any): Promise<IUser> {
+        const filter: any = {};
+        filter[property] = value;
+
         try {
-          return await this._UserModel.findOne({ name: name });
+            return await this._UserModel.findOne(filter);
         } catch (error) {
-          console.log(`[findUserByName] Error: ${JSON.stringify(error)}`);
-          return undefined;
-        }
-    }
-    
-    public async findUserByEmail(email: string): Promise<IUser> {
-        try {
-          return await this._UserModel.findOne({ email: email });
-        } catch (error) {
-          console.log(`[findUserByEmail] Error: ${JSON.stringify(error)}`);
-          return undefined;
+            console.log(`[findOneByProperty] Error: ${JSON.stringify(error)}`);
+            return undefined;
         }
     }
 
