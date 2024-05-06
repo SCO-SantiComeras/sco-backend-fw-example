@@ -9,9 +9,10 @@ import { FileFunctionsService } from "sco-backend-fw";
 import { USERS_CONSTANTS } from "./constants/user.constants";
 import { USERS_ROUTES_NAMES, USERS_ROUTES_PATH } from "../../controller-routes/users.routes";
 import { HttpErrorsService } from "../../core/shared/http-errors/http-errors.service";
+import { IWsNotificator } from "src/core/websockets/interfaces/iws-notificator.interface";
 
 @Injectable()
-export class UsersService implements IMongoBasic {
+export class UsersService implements IMongoBasic, IWsNotificator {
 
     public readonly USERS_ROUTES_PATH = USERS_ROUTES_PATH;
     public readonly USERS_ROUTES_NAMES = USERS_ROUTES_NAMES;
@@ -77,9 +78,11 @@ export class UsersService implements IMongoBasic {
     }
 
     /* Websockets */
+    public getEvent(): string {
+       return this.websocketsService.getEventByKeyConstant(this.USERS_ROUTES_PATH);
+    }
+
     public notifyWebsockets(): boolean {
-        return this.websocketsService.notifyWebsockets(
-            this.websocketsService.getEvent(this.USERS_ROUTES_PATH)
-        );
+        return this.websocketsService.notify(this.getEvent());
     }
 }
