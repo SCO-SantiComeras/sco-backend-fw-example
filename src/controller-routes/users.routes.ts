@@ -8,6 +8,7 @@ export const USERS_ROUTES_NAMES = {
     ADD: 'add',
     UPDATE: 'update',
     DELETE: 'delete',
+    POPULATE: 'populate',
 };
 
 export const USERS_ROUTES: IFileFunction[] = [
@@ -55,5 +56,13 @@ export const USERS_ROUTES: IFileFunction[] = [
         resultType: TYPES.BOOLEAN,
         validationPipe: false,
         validationPassport: true,
+    },
+    {
+        endpoint: false,
+        file: USERS_ROUTES_NAMES.POPULATE,
+        path: USERS_ROUTES_PATH,
+        resultType: TYPES.VOID,
+        validationPipe: false,
+        validationPassport: false,
     },
 ];
